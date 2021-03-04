@@ -1,10 +1,12 @@
 class Product < ApplicationRecord
+  validates :image_url, presence: true
+  validates :quantity, numericality: { greater_than: 0 }
+  validates :price, numericality: { greater_than: 0 }
+  validates :description, length: { in: 20..500 }
+  validates :name, presence: true
+
   def is_discounted?
-    if price <= 10
-      true
-    else
-      false
-    end
+    price <= 10
   end
 
   def tax
