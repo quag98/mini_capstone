@@ -1,4 +1,5 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_admin, except: [:index, :show]
   # def all_product_action
   #   @products = Product.all
   #   render "all_product.json.jb"
@@ -35,6 +36,7 @@ class Api::ProductsController < ApplicationController
       name: params[:name],
       price: params[:price],
       description: params[:description],
+      supplier_id: params[:supplier_id],
     )
     if @product.save
       render "show.json.jb"

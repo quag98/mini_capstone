@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
   belongs_to :supplier
-  has_many :images
   has_many :orders
   # validates :image_url, presence: true
   # validates :quantity, numericality: { greater_than: 0 }
@@ -12,19 +11,19 @@ class Product < ApplicationRecord
   #   Supplier.find_by(id: supplier_id)
   # end
 
-  # def image
-  #   Image.where(product_id: id)
+  def image
+    Image.where(product_id: id)
+  end
+
+  # def is_discounted?
+  #   price <= 10
   # end
 
-  def is_discounted?
-    price <= 10
-  end
+  # def tax
+  #   price * 0.09
+  # end
 
-  def tax
-    price * 0.09
-  end
-
-  def total
-    price + tax
-  end
+  # def total
+  #   price + tax
+  # end
 end
