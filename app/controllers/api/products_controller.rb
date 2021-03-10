@@ -16,11 +16,12 @@ class Api::ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.all
-    if params["search"]
-      @product = Product.where("name ILIKE ?", "%#{params[search]}%")
+    if current_user
+      @products = Product.all
+      render "index.json.jb"
+    else
+      render json: []
     end
-    render "index.json.jb"
   end
 
   def show
@@ -37,7 +38,6 @@ class Api::ProductsController < ApplicationController
     )
     if @product.save
       render "show.json.jb"
-    end
     else
       render json: { errors: @product.errors.full_messages }, status: 406
     end
@@ -54,7 +54,7 @@ class Api::ProductsController < ApplicationController
     if @product.save
       render "show.json.jb"
     else
-      render json: {errors: @product.errors.full_messages}, status :406
+      render json: { errors: @product.errors.full_messages }, status: 406
     end
   end
 
