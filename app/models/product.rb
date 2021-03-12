@@ -1,6 +1,9 @@
 class Product < ApplicationRecord
   belongs_to :supplier
   has_many :orders
+  has_many :category_products
+  has_many :categories, through: :category_products
+
   # validates :image_url, presence: true
   # validates :quantity, numericality: { greater_than: 0 }
   # validates :price, numericality: { greater_than: 0 }
@@ -9,6 +12,12 @@ class Product < ApplicationRecord
 
   # def supplier
   #   Supplier.find_by(id: supplier_id)
+  # end
+
+  # def categories
+  #   category_products.map do |category_product|
+  #     category_product.category
+  #   end
   # end
 
   def image
