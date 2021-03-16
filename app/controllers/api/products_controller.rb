@@ -5,24 +5,24 @@ class Api::ProductsController < ApplicationController
   #   render "all_product.json.jb"
   # end
 
-  def single_product_action
-    @product = Product.find_by(id: 1)
-    render "single_product.json.jb"
-  end
+  # def single_product_action
+  #   @product = Product.find_by(id: 1)
+  #   render "single_product.json.jb"
+  # end
 
-  def single_search_action
-    input_option = params["id_number"]
-    @product = Product.find_by(id: input_option)
-    render "query_param.json.jb"
-  end
+  # def single_search_action
+  #   input_option = params["id_number"]
+  #   @product = Product.find_by(id: input_option)
+  #   render "query_param.json.jb"
+  # end
 
   def index
-    if current_user
-      @products = Product.all
-      render "index.json.jb"
-    else
-      render json: []
+    @products = Product.all
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
     end
+    render "index.json.jb"
   end
 
   def show
